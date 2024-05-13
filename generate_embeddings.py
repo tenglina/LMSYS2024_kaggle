@@ -27,9 +27,9 @@ change the :100 index, still a work in progress, generated embeddings for only t
 def create_embedded_dataset(input_file_path, output_file_path, prompt_emb_model, response_emb_model):
     df = pd.read_csv(input_file_path)
     
-    prompts_embeddings = gen_embeddings(df['prompt'].values[:100], prompt_emb_model)
-    responses_a_embeddings = gen_embeddings(df['response_a'].values[:100], response_emb_model)
-    response_b_embeddings = gen_embeddings(df['response_b'].values[:100], response_emb_model)
+    prompts_embeddings = gen_embeddings(df['prompt'].values, prompt_emb_model)
+    responses_a_embeddings = gen_embeddings(df['response_a'].values, response_emb_model)
+    response_b_embeddings = gen_embeddings(df['response_b'].values, response_emb_model)
 
     ids = df['id'].values[:100]
     output = [[ids[i], prompts_embeddings[i], responses_a_embeddings[i], response_b_embeddings[i]] for i in range(len(ids))]
@@ -44,7 +44,7 @@ def create_embedded_dataset(input_file_path, output_file_path, prompt_emb_model,
     
 
 def main():
-    create_embedded_dataset('train.csv', "output.csv", "all-MiniLM-L6-v2", "all-MiniLM-L6-v2")
+    create_embedded_dataset('train.csv', "output2.csv", "all-MiniLM-L6-v2", "all-MiniLM-L6-v2")
 
 
 
