@@ -3,6 +3,8 @@ import numpy as np
 from sentence_transformers import SentenceTransformer, util
 import pandas as pd
 import csv
+import torch
+torch.cuda.empty_cache()
 
 
 """
@@ -31,7 +33,7 @@ def create_embedded_dataset(input_file_path, output_file_path, prompt_emb_model,
     responses_a_embeddings = gen_embeddings(df['response_a'].values, response_emb_model)
     response_b_embeddings = gen_embeddings(df['response_b'].values, response_emb_model)
 
-    ids = df['id'].values[:100]
+    ids = df['id'].values
     output = [[ids[i], prompts_embeddings[i], responses_a_embeddings[i], response_b_embeddings[i]] for i in range(len(ids))]
     
     fields = ['id', 'prompt', 'response_a_emb', 'response_b_emb']
@@ -49,4 +51,5 @@ def main():
 
 
 if __name__ == "__main__":
+
     main()
